@@ -68,7 +68,6 @@ for moves in moves_list:
             if vertical_distance==2 and horizontal_distance==-1:
                 tail[1]=tail[1]+1
                 tail[0]=tail[0]-1
-           
                 
             if vertical_distance==-2 and horizontal_distance==0:
                 tail[1]=tail[1]-1
@@ -78,7 +77,6 @@ for moves in moves_list:
             if vertical_distance==-2 and horizontal_distance==-1:
                 tail[1]=tail[1]-1
                 tail[0]=tail[0]-1
-               
                 
             
             #input()
