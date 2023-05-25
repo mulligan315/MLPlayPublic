@@ -1,7 +1,8 @@
 class Node:
     all_Nodes=[]
-    def __init__(self,altitude,row,column,isStart,isEnd) -> None:
+    def __init__(self,altitude,letter,row,column,isStart,isEnd) -> None:
         self.altitude=altitude
+        self.letter=letter
         self.row=row
         self.column=column
         self.steps=0
@@ -25,13 +26,14 @@ def convertToNodes(letter_string,row_num):
         isStart=False
         isEnd=False
         if letter=='S':
-            isStart=True
             letter='a'
         if letter=='E':
-            isEnd=True
+            isStart=True
             letter='z'
-        int_temp=ord(letter)-97
-        node_temp=Node(int_temp,row_num,column_num,isStart,isEnd)
+        if letter=='a':
+            isEnd=True
+        int_temp=abs(ord(letter)-97-25)
+        node_temp=Node(int_temp,letter,row_num,column_num,isStart,isEnd)
         node_list.append(node_temp)
         if isStart:
             start=node_temp
@@ -84,6 +86,7 @@ for line in grid_list:
     rowNodes=convertToNodes(line,row_num)
     grid.append(rowNodes)
     row_num += 1
+
 
 search_for_route('',0,(start.row,start.column),-1)
 

@@ -18,24 +18,25 @@ shortest_route=700
 
 def convertToNodes(letter_string,row_num):
     global start
-    
+    global end
     node_list=[]
     column_num=0
     for letter in letter_string:
         isStart=False
         isEnd=False
         if letter=='S':
-            isStart=True
             letter='a'
         if letter=='E':
-            isEnd=True
+            isStart=True
             letter='z'
+        if letter=='a':
+            isEnd=True
+        
         int_temp=ord(letter)-97
         node_temp=Node(int_temp,row_num,column_num,isStart,isEnd)
         node_list.append(node_temp)
         if isStart:
             start=node_temp
-        
         
         column_num += 1
     return node_list
@@ -46,7 +47,7 @@ def search_for_route(source_direction,source_elevation,node_index,steps=0): #nod
     global shortest_route
     current_node=grid[node_index[row]][node_index[column]]
     
-    if current_node.altitude > source_elevation + 1:
+    if current_node.altitude + 1 < source_elevation:
         return
     if all([current_node.steps !=0,current_node.steps <= steps+1]):
         return
@@ -57,6 +58,8 @@ def search_for_route(source_direction,source_elevation,node_index,steps=0): #nod
     current_node.steps=steps
     if current_node.isEnd==True:
         shortest_route=steps
+        print(node_index,steps,current_node.altitude)
+        print(shortest_route)
         return
     
     directions=[]
@@ -85,6 +88,6 @@ for line in grid_list:
     grid.append(rowNodes)
     row_num += 1
 
-search_for_route('',0,(start.row,start.column),-1)
+search_for_route('',25,(start.row,start.column),-1)
 
 print(shortest_route)
